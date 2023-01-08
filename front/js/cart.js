@@ -113,6 +113,9 @@ const changeQuantity = () => {
         // Set the value to 100
         event.target.value = 100;
         alert("La quantité maximale autorisé est 100");
+      } else if (event.target.value < 1) {
+        event.target.value = 1;
+        alert("La quantité minimal autorisé est 1");
       }
     });
 
@@ -327,17 +330,23 @@ btnValidate.addEventListener("click", (event) => {
   }
 
   // Contrôle validité formulaire avant de pouvoir passer commande 
-  if (
-    firstNameControl() &&
-    lastNameControl() &&
-    addressControl() &&
-    mailControl()
-  ) {
-    sendToServer();
-  } else {
-    alert("Veuillez bien remplir le formulaire");
+  if ( cart == null ){
+    alert("Veuillez ajouter des articles à votre panier");
+  } else{
+    if (
+      firstNameControl() &&
+      lastNameControl() &&
+      addressControl() &&
+      cityControl() &&
+      mailControl() 
+    ) {
+      sendToServer();
+    } else {
+      alert("Veuillez bien remplir le formulaire");
+    }
   }
-});
+  });
+
 
 /* FIN REQUÊTE DU SERVEUR ET POST DES DONNÉES */
 

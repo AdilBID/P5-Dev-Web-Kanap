@@ -86,19 +86,24 @@ const registredProduct = (product) => {
         item.id == selectedProduct.id && item.color == selectedProduct.color
     );
 
-    // Si oui, on incrémente la nouvelle quantité et la mise à jour du prix total de l'article
+    // Si oui, on incrémente la nouvelle quantité et la mise à jour du prix total de l'article et on enleve l'article du panier
     if (item) {
       selectedProduct.quantity = item.quantity + selectedProduct.quantity;
       selectedProduct.totalPrice += item.price * selectedProduct.quantity;
+      existingCart.pop(selectedProduct);
     }
     
     if (selectedProduct.quantity > 100) {
+      confirm('La quantité totale de l\'article ne peut pas dépasser les 100 unités.');
+      return;
+    } else if (selectedProduct.quantity < 1) {
       confirm('La quantité totale de l\'article ne peut pas dépasser les 100 unités.');
       return;
     }
 
     // Si non, alors on push le nouvel article sélectionné
     existingCart.push(selectedProduct);
+
     localStorage.setItem("cart", JSON.stringify(existingCart));
     alert("Le produit a été ajouté au panier");
 
